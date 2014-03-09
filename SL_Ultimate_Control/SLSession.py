@@ -3,6 +3,7 @@ from _Framework.SessionComponent import SessionComponent
 from _Framework.SceneComponent import SceneComponent
 from _Framework.ClipSlotComponent import ClipSlotComponent
 from _Framework.ButtonElement import ButtonElement
+from _Framework.SubjectSlot import subject_slot
 
 from consts import NONAME_CLIP, GROUP_CLIP, NO_CLIP, NO_CLIP_STOP_BUTTON, NO_CLIP_REC_BUTTON
 from config import P2_INVERT_SHIFT_MODE, SCENE_FOLLOWS_SESSION_BOX
@@ -17,8 +18,8 @@ class SLSession(SessionComponent):
         self._support_mkII = False
         self._master_mode = False
         self._tracks_and_listeners = []
-        SessionComponent.__init__(self, num_tracks, num_scenes)
-        self._selected_scene = SLScene(self._num_tracks, self.tracks_to_use, self)
+        #SessionComponent.__init__(self, num_tracks, num_scenes)
+        #self._selected_scene = SLScene(self._num_tracks, self.tracks_to_use, self)
         #self._bank_mode = False
         self._shift_button = None #R.Shift
         self._show_scene_button = None
@@ -26,6 +27,8 @@ class SLSession(SessionComponent):
         self._scene_down_button = None
         self._scroll_up_ticks_delay = -1
         self._scroll_down_ticks_delay = -1
+        SessionComponent.__init__(self, num_tracks, num_scenes)
+        self._selected_scene = SLScene(self._num_tracks, self.tracks_to_use, self)
         self.update_all_listeners()
         self._register_timer_callback(self._on_custom_timer)
         
@@ -146,7 +149,7 @@ class SLSession(SessionComponent):
                 self.song().view.selected_scene = self.song().scenes[self._scene_offset]
   
     def prepare_bank_right(self):
-        self.set_offsets(self.track_offset() + self._track_banking_increment, self.scene_offset())
+        self.set_offsets(self.track_offset() + 1, self.scene_offset())
         if self._mixer._display._hold_left != 0 or self._mixer._encoder_mode_index in (0,8,9):
             self._mixer.show_selected_tracks(True)
         else:
@@ -158,7 +161,7 @@ class SLSession(SessionComponent):
         return self.prepare_bank_right()
 
     def prepare_bank_left(self):
-        self.set_offsets(max(self.track_offset() - self._track_banking_increment, 0), self.scene_offset())
+        self.set_offsets(max(self.track_offset() - 1, 0), self.scene_offset())
         if self._mixer._display._hold_left != 0 or self._mixer._encoder_mode_index in (0,8,9):
             self._mixer.show_selected_tracks(True)
         else:
@@ -173,7 +176,10 @@ class SLSession(SessionComponent):
         #return len(self.tracks_to_use()) > self._get_minimal_track_offset() + 1
         #if (len(tracks)- ((7-int(self._master_mode))*int(OFFSET_LIMIT or self._bank_mode)) > (track_offset + 1)):
         #if (len(tracks) > (track_offset + 1)):
-        return (len(self.tracks_to_use())- ((7-int(self._master_mode))*(int(not P2_INVERT_SHIFT_MODE ^ self._shift_button.is_pressed()))  ) > (self._get_minimal_track_offset() + 1))
+        if self._shift_button != None:
+            return (len(self.tracks_to_use())- ((7-int(self._master_mode))*(int(not P2_INVERT_SHIFT_MODE ^ self._shift_button.is_pressed()))  ) > (self._get_minimal_track_offset() + 1))
+        else:
+            return (len(self.tracks_to_use())- ((7-int(self._master_mode))*(int(not P2_INVERT_SHIFT_MODE ^ 0))  ) > (self._get_minimal_track_offset() + 1))
     
     def set_show_scene_button(self, button):
         assert ((button == None) or isinstance(button, ButtonElement))
@@ -292,7 +298,7 @@ class SLSession(SessionComponent):
             self._update_requests += 1
             
     def set_track_banking_increment(self, increment):
-        SessionComponent.set_track_banking_increment(self, increment)
+        #SessionComponent.set_track_banking_increment(self, increment)
         self._horizontal_banking.update()
             
     def _reassign_tracks(self):
@@ -408,7 +414,8 @@ class SLScene(SceneComponent):
     def __init__(self, num_slots, tracks_to_use_callback, session):
         self._session = session
         SceneComponent.__init__(self, num_slots, tracks_to_use_callback)
-
+    
+    @subject_slot('value')
     def _launch_value(self, value):
         SceneComponent._launch_value(self, value)
         assert (self._launch_button != None)

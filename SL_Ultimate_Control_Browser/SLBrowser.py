@@ -274,7 +274,7 @@ class SLBrowser(DeviceComponent):
    
     def update(self):
         if (self.is_enabled()):
-            self._on_on_off_changed()            
+            self._update_on_off_buttton() #self._on_on_off_changed()            
         if self._update_callback != None:
             self._update_callback() 
         

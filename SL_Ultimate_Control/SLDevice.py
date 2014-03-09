@@ -110,7 +110,7 @@ class SLDevice(DeviceComponent):
                     control.release_parameter()        
         if (self.is_enabled()):
             if (self._device != None):
-                self._on_on_off_changed() #update on\off status on track select
+                self._update_on_off_buttton() #self._on_on_off_changed() #update on\off status on track select
                 self.set_device_values()
             else:
                 self._display.setup_left_display((' No device selected',))
