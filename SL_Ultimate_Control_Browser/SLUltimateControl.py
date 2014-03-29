@@ -37,10 +37,15 @@ class SLUltimateControl(ControlSurface):
     def __init__(self, c_instance):
         instance = c_instance
         
+ 
+        ControlSurface.__init__(self, c_instance)
         if BROWSER_ENABLE:
             self._browser = SLBrowserControl(c_instance)
-            
-        ControlSurface.__init__(self, c_instance)
+            self._init_task = self._tasks.add(Task.run(self._browser._device.background_startup))
+            self._browser._device._init_task = self._init_task
+            self._init_task.pause()
+            #self._init_task.restart()
+            self.log("Browser Task Created")  
         with self.component_guard():
             self._support_mkII = False
             self._lock_enquiry_delay = 0

@@ -30,14 +30,37 @@ class SLBrowser(DeviceComponent):
         self._mode_selector = None
         self._action_controls = None
         self._is_last_nav = False
-        self._mapping = SLPadMapping(self)        
-        self._init_browser()
+        self._active_browser = None
+        self._mapping = SLPadMapping(self)    
         DeviceComponent.__init__(self)
-        self._register_timer_callback(self._on_custom_timer)
+        self._init_browser()
+        #self._register_timer_callback(self._on_custom_timer)
+        self._init_task = None
+        self._init_done = False
+        #self._load_favorites()
+        #self._load_recent()
+        #self._load_last_mappings()
         
+    def background_startup(self):        
+        self.debug("Browser Creation Task currently Running")        
+        self._load_browser()               
         self._load_favorites()
         self._load_recent()
-        self._load_last_mappings()
+        self._load_last_mappings()        
+        self._active_browser = self._select_browser()
+        self.debug("Browser Creation Task End")
+        self._init_done = True   
+        
+    def check_browser_init(self):
+        if not self._init_done:
+            self._display.show_message_left(' Loading Browser, Please Wait...', '', False, False)
+            self._init_task.resume()
+            self.debug("init not started,now running")
+            return False
+        else:
+            #self.debug("init already done")
+            self._init_task.kill()
+            return True        
         
     def disconnect(self):
         self._save_favorites()
@@ -59,8 +82,11 @@ class SLBrowser(DeviceComponent):
         
     def set_browser_mode(self, mode):
         self._browser_mode = mode%5
-
         self._active_browser = self._select_browser()
+        if not self._init_done:
+            return
+            
+        
  
         self.debug('Entering in Browser Mode : %d' % self._browser_mode)
         if self._browser_mode == 3: #HOTSWAP BROWSER
@@ -217,6 +243,8 @@ class SLBrowser(DeviceComponent):
     def set_device_values(self,id,value):
         if (self.is_enabled() and (self._parameter_controls != None)):
             
+            if not self.check_browser_init():
+                return
             self.param_values[id] = value
             if id < 4: # store last selected browsing category
                 self._is_last_nav=True
@@ -308,6 +336,8 @@ class SLBrowser(DeviceComponent):
         
     def show_device_values(self, pot_light=False):
         #self.debug('show device value')
+        if not self.check_browser_init():
+            return
         self.update_device_string()
         if self.is_enabled() and SLBrowser._display != None:
             if self._is_last_nav :
@@ -667,7 +697,14 @@ class SLBrowser(DeviceComponent):
         self._hotswap_mode = False
          
         self._recent_idx = 0
+        self._corelib = None
+        #self._corelib.set_global_alternate_action(self._temp_alternate_action)
+        self._favoritepresets = None
+        self._recentpresets = None
+        self._custommenu = None
+        self._active_menu = None
         
+    def _load_browser(self):            
         self._corelib = SLLiveCoreLibMenu(auto_refresh_folder_prefix=AUTO_REFRESH_FOLDER_PREFIX,parent=self.__parent)
         #self._corelib.set_global_alternate_action(self._temp_alternate_action)
         self._favoritepresets = SLFavoriteLivePresetsMenu(CoreLib=self._corelib,parent=self.__parent)
@@ -741,10 +778,12 @@ class SLBrowser(DeviceComponent):
 
         
     def _load_recent(self):
-        self._load_presets(RECENT_PRESETS_FILE,'RECENT',self._corelib,self._recentpresets.add_item_to_recent_list) 
+        if self._recentpresets != None:
+            self._load_presets(RECENT_PRESETS_FILE,'RECENT',self._corelib,self._recentpresets.add_item_to_recent_list) 
         
     def _load_favorites(self):
-        self._load_presets(FAVORITE_PRESETS_FILE,'MARKED',self._corelib,self._favoritepresets.add_item_to_favorites_list)
+        if self._favoritepresets != None:
+            self._load_presets(FAVORITE_PRESETS_FILE,'MARKED',self._corelib,self._favoritepresets.add_item_to_favorites_list)
         
     def _load_presets(self,filename,header,corelib,func):
         mrs_path = ''
@@ -764,10 +803,12 @@ class SLBrowser(DeviceComponent):
         f.close()
         
     def _save_recent(self):
-        self._save_presets(RECENT_PRESETS_FILE,self._recentpresets,'RECENT')
+        if self._recentpresets != None:
+            self._save_presets(RECENT_PRESETS_FILE,self._recentpresets,'RECENT')
     
     def _save_favorites(self):
-        self._save_presets(FAVORITE_PRESETS_FILE,self._favoritepresets,'MARKED')
+        if self._favoritepresets != None:
+            self._save_presets(FAVORITE_PRESETS_FILE,self._favoritepresets,'MARKED')
     
     def _save_presets(self,filename,browser,header):
         try:
