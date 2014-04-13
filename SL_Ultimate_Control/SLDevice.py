@@ -17,13 +17,15 @@ class SLDevice(DeviceComponent):
         self._lock_button_blink = False
         self._was_locked = False
         self._device_string = ''
-        DeviceComponent.__init__(self)
+        #DeviceComponent.__init__(self)
+        super(SLDevice, self).__init__()
         self._register_timer_callback(self._on_custom_timer)
 
     def disconnect(self):
         self._unregister_timer_callback(self._on_custom_timer)
         self._display = None
-        DeviceComponent.disconnect(self)
+        #DeviceComponent.disconnect(self)
+        super(SLDevice, self).disconnect()
 
     def _on_custom_timer(self):
         if self.is_enabled():
@@ -110,16 +112,17 @@ class SLDevice(DeviceComponent):
                     control.release_parameter()        
         if (self.is_enabled()):
             if (self._device != None):
-                self._update_on_off_buttton() #self._on_on_off_changed() #update on\off status on track select
+                #self.on_enabled_changed() #update on\off status on track select
                 self.set_device_values()
             else:
-                self._display.setup_left_display((' No device selected',))
+                self._display.setup_left_display((' No device',))
         if self._update_callback != None:
             self._update_callback() 
 
     def _on_off_value(self, value):
         if (self.is_enabled()):
-            DeviceComponent._on_off_value(self, value)
+            #DeviceComponent._on_off_value(self, value)
+            super(SLDevice, self)._on_off_value(value)
             #self.show_device()
             self.show_device_parameters()
             
@@ -170,7 +173,8 @@ class SLDevice(DeviceComponent):
             self.show_device_parameters()
 
     def set_device(self, device):
-        DeviceComponent.set_device(self, device)
+        #DeviceComponent.set_device(self, device)
+        super(SLDevice, self).set_device(device)
         assert ((device == None) or isinstance(device, Live.Device.Device))   
         if self.is_enabled() and not self._locked_to_device:
             if self._update_callback != None:
@@ -178,13 +182,15 @@ class SLDevice(DeviceComponent):
             self.show_device()
 
     def _bank_up_value(self, value):
-        DeviceComponent._bank_up_value(self, value)
+        #DeviceComponent._bank_up_value(self, value)
+        super(SLDevice, self)._bank_up_value(value)
         if self.is_enabled():
             if ((not self._bank_up_button.is_momentary()) or (value is not 0)):
                 self.show_device_parameters()
 
     def _bank_down_value(self, value):
-        DeviceComponent._bank_down_value(self, value)
+        #DeviceComponent._bank_down_value(self, value)
+        super(SLDevice, self)._bank_down_value(value)
         if self.is_enabled():
             if ((not self._bank_down_button.is_momentary()) or (value is not 0)):
                 self.show_device_parameters()
@@ -201,7 +207,7 @@ class SLDevice(DeviceComponent):
         return root_device
     
     def update_device_string(self):
-        device_string = ' No device selected'
+        device_string = ' No device'
         if self._device != None:
             device_string = ' Device:'+chr(16)
 
@@ -252,7 +258,7 @@ class SLDevice(DeviceComponent):
     def show_device_parameters(self):
         self.update_device_string()
         if self.is_enabled():
-            device_string = ' No device selected'
+            device_string = ' No device'
             param_string = ''
             if self._device != None and self._parameter_controls != None:
                 for index in range(len(self._parameter_controls)):
@@ -275,7 +281,8 @@ class SLDevice(DeviceComponent):
             
         
     def _assign_parameters(self):
-        DeviceComponent._assign_parameters(self)
+        #DeviceComponent._assign_parameters(self)
+        super(SLDevice, self)._assign_parameters()
         for index in range(len(self._parameter_controls)):
             if (self._parameter_controls[index].mapped_parameter() != None):
                 if (self._parameter_controls[index].mapped_parameter().value_has_listener(self._on_value_changed)):

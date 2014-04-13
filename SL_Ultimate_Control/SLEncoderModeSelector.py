@@ -148,8 +148,7 @@ class SLEncoderModeSelector(ChannelTranslationSelector):
                     #device_count = len(devices)
                     #if device_count > 0 : #track has devices, but device not selected
                         #self.song().view.select_device(devices[0]) #select first device                
-                #self._device._on_on_off_changed()
-                self._device._update_on_off_buttton()
+                self._device.update()#self._device.on_enabled_changed()
                 #self._device.show_device()
                 self._device.show_device_parameters() 
                 

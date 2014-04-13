@@ -92,7 +92,7 @@ class SLMasterModeSelector(ChannelTranslationSelector):
         self._mixer.set_slider_values()
         
         self._session._master_mode = self._master_mode
-        self._session.set_track_banking_increment(1 + ((7-int(self._master_mode))*(int(not P2_INVERT_SHIFT_MODE ^ self._session._shift_button.is_pressed()))))
+        self._session.track_increment = 1 + ((7-int(self._master_mode))*(int(not P2_INVERT_SHIFT_MODE ^ self._session._shift_button.is_pressed())))
         self._session.update()
         self._session._do_show_highlight()
         

@@ -32,7 +32,7 @@ from config import BROWSER_ENABLE
 class SLUltimateControl(ControlSurface):
     __doc__ = " SL Ultimate Control "
     _script_name = "SL Ultimate Control Script for Live 9"
-    _script_ver = "1.06"
+    _script_ver = "1.07"
 
     def __init__(self, c_instance):
         instance = c_instance

@@ -96,9 +96,9 @@ class SLExtraDevice(DeviceComponent):
             #if (self._parameter_controls != None):
                 #for control in self._parameter_controls:
                     #control.release_parameter()
-        if (self.is_enabled()):
-            if (self._device != None):
-                self._update_on_off_buttton() #self._on_on_off_changed()
+        #if (self.is_enabled()):
+            #if (self._device != None):
+                #self._on_on_off_changed()
                 #self.update_lock_button()
         if self._update_callback != None:
             self._update_callback() 

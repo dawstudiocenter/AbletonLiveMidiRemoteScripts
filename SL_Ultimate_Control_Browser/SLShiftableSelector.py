@@ -100,6 +100,7 @@ class SLShiftableSelector(ModeSelectorComponent):
             elif (self._mode_index == 1):
                 #self.debug('SHIFT')
                 #SHIFTED
+                self._session.scene(0).set_launch_button(None)                
                 for index in range(8):
                     self._mixer.channel_strip(index).set_select_button(None)
                     clip_slot = self._session.scene(0).clip_slot(index)
@@ -110,7 +111,6 @@ class SLShiftableSelector(ModeSelectorComponent):
                 self._device_control.set_device_nav_buttons(None, None) 
 
                 self._session.set_scene_bank_buttons(None, None)
-                self._session.scene(0).set_launch_button(None)
                 self._mixer.set_show_pot_values_button(None)
                 
                 self._device.set_bank_nav_buttons(self._p1buttons[1], self._p1buttons[0])
