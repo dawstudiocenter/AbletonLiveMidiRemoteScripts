@@ -20,8 +20,8 @@ class SLBrowser(DeviceComponent):
     _main_device = None
     
     def debug(self,msg):
-        s = msg.encode('utf-8')
-        return self.__parent.log_message(s)
+        #s = msg.encode('utf-8')
+        return self.__parent.log_message(msg)
         
     def __init__(self, parent):
         self._update_callback = None
@@ -302,7 +302,8 @@ class SLBrowser(DeviceComponent):
    
     def update(self):
         if (self.is_enabled()):
-            self._update_on_off_buttton() #self._on_on_off_changed()            
+            self._update_on_off_button()
+            #DeviceComponent._on_on_off_changed(self)            
         if self._update_callback != None:
             self._update_callback() 
         
