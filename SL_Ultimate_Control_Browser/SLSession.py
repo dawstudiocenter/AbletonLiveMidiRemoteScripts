@@ -406,7 +406,7 @@ class SLSession(SessionComponent):
     def _create_scene(self): #added
         return SLScene(self._num_tracks, self.tracks_to_use, self)
         #return self.scene_component_type(num_slots=self._num_tracks, tracks_to_use_callback=self.tracks_to_use) 
-    
+
     def _on_custom_timer(self):
         if self.is_enabled():
             scroll_delays = [self._scroll_up_ticks_delay,
