@@ -7,6 +7,8 @@ from _Framework.InputControlElement import *
 from _Framework.SliderElement import SliderElement
 from _Framework.ButtonElement import ButtonElement
 from _Framework.EncoderElement import EncoderElement
+from _Generic.util import DeviceAppointer
+from _Framework.DeviceComponent import select_and_appoint_device
 
 from consts import *
 from SLSession import SLSession
@@ -106,6 +108,9 @@ class SLUltimateControl(ControlSurface):
             self.show_message(self.__doc__ + "script loaded...")
             self.log('loaded')
         return None
+    
+    def _set_appointed_device(self, device):
+        select_and_appoint_device(self.song(), device)
 
     def disconnect(self):
         self._shift_mode = None
@@ -268,6 +273,8 @@ class SLUltimateControl(ControlSurface):
         self._device.set_parameter_controls(tuple(encoders))
         self.set_device_component(self._device)
         self._mixer._device = self._device
+      
+        self._device_appointer = DeviceAppointer(song=self.song(), appointed_device_setter=self._set_appointed_device)
 
         p1_buttons = []
         p1_buttons.append(ButtonElement(is_momentary, MIDI_CC_TYPE, MIDI_CHANNEL, P1_UP))

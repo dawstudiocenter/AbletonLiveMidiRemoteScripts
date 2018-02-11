@@ -489,7 +489,7 @@ class SLClipSlot(ClipSlotComponent):
     def update(self):
         if self._session._support_mkII:
             self._has_fired_slot = False
-            if Live.Application.get_application().get_major_version() == 9 and Live.Application.get_application().get_minor_version() > 0:
+            if (Live.Application.get_application().get_major_version() == 9 and Live.Application.get_application().get_minor_version() > 0) or Live.Application.get_application().get_major_version() == 10 :
                 button = self._launch_button_value.subject
             else:
                 button = self._launch_button_value_slot.subject
