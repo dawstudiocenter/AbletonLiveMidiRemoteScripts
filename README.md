@@ -26,7 +26,6 @@ Ex. for a drum loop of 128bpm part of a 'Swedish Pop Vol1' compilation set.
 Try it to see the difference on SL MK2 device.
 Instrument lists will be configurable in a future version.
 
-Image Image
 
 Other minor features:
 - original script behavior of track select buttons have been customized in order
@@ -43,7 +42,7 @@ It has been tested on Ableton 9.1 / 64 bits and 32bits under Windows XP,Seven an
 
 
 Video Tutorials:
-24/12/2013 - Setup & Basic usage
+24/12/2013 - Setup & Basic usage https://youtu.be/ZC1rqmmT7fQ
 
 
 Version History:
