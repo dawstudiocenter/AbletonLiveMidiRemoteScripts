@@ -1,13 +1,13 @@
 #SL Ultimate Control Settings
 from consts import ON, OFF
 
-SMART_VIEW = OFF
+SMART_VIEW = ON
 INCLUDE_RETURN_TRACKS = ON
 INVERT_MUTE_FEEDBACK = ON
 SCENE_FOLLOWS_SESSION_BOX = OFF
 TRACK_SELECT_ON_ARM = ON
 P2_INVERT_SHIFT_MODE = ON
-BROWSER_ENABLE = OFF #require PAD_ROW_BASE to be defined in consts with custom CC number. 
+BROWSER_ENABLE = ON #require PAD_ROW_BASE to be defined in consts with custom CC number. 
 # Those CC Number shall also be programmed accordingly on MK2 device in Ableton Template.
 
 #BROWSER MODES IS CONTROLED USING PADS AND POTI ENCODERS
@@ -80,7 +80,7 @@ MIDI1_TRACK_COLOR = 13107200 #R(200)
 AUDIO_TRACK_COLOR =      200 #B(200)
 
 DEFAULT_ENCODER_MODE = 8 #0 - Track, 1 - Pan, 2-7 - Send A-F, 8 - Device
-DEFAULT_POT_MODE = 1     #0 - Track, 1 - Pan, 2-7 - Send A-F, 8 - Device, 9 - Browser
+DEFAULT_POT_MODE = 9     #0 - Track, 1 - Pan, 2-7 - Send A-F, 8 - Device, 9 - Browser
 
 TEMPO_TOP = 200.0
 TEMPO_BOTTOM = 60.0
