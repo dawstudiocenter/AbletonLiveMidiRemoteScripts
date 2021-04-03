@@ -2,7 +2,7 @@ import Live
 #from _Framework.ModeSelectorComponent import ModeSelectorComponent
 from _Framework.ChannelTranslationSelector import ChannelTranslationSelector 
 from _Framework.ButtonElement import ButtonElement
-from config import P2_INVERT_SHIFT_MODE
+from .config import P2_INVERT_SHIFT_MODE
 
 class SLMasterModeSelector(ChannelTranslationSelector):
     __doc__ = ' SelectorComponent that assigns buttons to functions based on the mixer mode buttons '

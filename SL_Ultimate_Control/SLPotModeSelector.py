@@ -4,7 +4,7 @@ from _Framework.ButtonElement import ButtonElement
 
 from SL_Ultimate_Extra_Device.SLExtraDeviceControl import *
 
-from config import DEFAULT_POT_MODE, SMART_VIEW
+from .config import DEFAULT_POT_MODE, SMART_VIEW
 
 class SLPotModeSelector(ChannelTranslationSelector):
     ' fdfs '

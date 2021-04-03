@@ -1,6 +1,6 @@
 from _Framework.ModeSelectorComponent import ModeSelectorComponent
 from _Framework.ButtonElement import *
-from config import INVERT_MUTE_FEEDBACK
+from .config import INVERT_MUTE_FEEDBACK
 
 class SLButtonModeSelector(ModeSelectorComponent):
     __doc__ = ' gfdgdfg '

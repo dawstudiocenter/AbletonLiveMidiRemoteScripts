@@ -4,7 +4,7 @@ from _Framework.ControlSurfaceComponent import ControlSurfaceComponent
 from _Framework.ButtonElement import ButtonElement
 from _Framework import Task
 
-from consts import MIDI_CHANNEL, CC_STATUS, CC_VAL_BUTTON_PRESSED, CC_VAL_BUTTON_RELEASED, BUTTON_HOLD_DELAY, QUAINTIZATION_TO_BEAT
+from .consts import MIDI_CHANNEL, CC_STATUS, CC_VAL_BUTTON_PRESSED, CC_VAL_BUTTON_RELEASED, BUTTON_HOLD_DELAY, QUAINTIZATION_TO_BEAT
 
 class SLTransport(TransportComponent):
     ' Subclass of channel strip component using select button for (un)folding tracks '

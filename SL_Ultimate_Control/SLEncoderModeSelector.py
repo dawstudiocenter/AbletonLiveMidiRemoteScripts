@@ -1,8 +1,8 @@
 import Live 
 from _Framework.ChannelTranslationSelector import ChannelTranslationSelector 
 from _Framework.ButtonElement import ButtonElement 
-from config import DEFAULT_ENCODER_MODE, SMART_VIEW
-from consts import BUTTON_HOLD_DELAY
+from .config import DEFAULT_ENCODER_MODE, SMART_VIEW
+from .consts import BUTTON_HOLD_DELAY
 
 class SLEncoderModeSelector(ChannelTranslationSelector):
     ' SelectorComponent that assigns select buttons to different functions '

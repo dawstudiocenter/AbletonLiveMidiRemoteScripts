@@ -1,7 +1,7 @@
 #import Live
 from _Framework.ModeSelectorComponent import ModeSelectorComponent
 from _Framework.ButtonElement import ButtonElement
-from config import P2_INVERT_SHIFT_MODE
+from .config import P2_INVERT_SHIFT_MODE
 
 class SLRightShiftSelector(ModeSelectorComponent):
     __doc__ = ' gdfg '

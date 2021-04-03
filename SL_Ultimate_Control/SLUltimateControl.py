@@ -10,24 +10,24 @@ from _Framework.EncoderElement import EncoderElement
 from _Generic.util import DeviceAppointer
 from _Framework.DeviceComponent import select_and_appoint_device
 
-from consts import *
-from SLSession import SLSession
-from SLMixer import SLMixer
-from SLDevice import SLDevice
-from SLDeviceControl import SLDeviceControl
-from SLEncoder import SLEncoder
-from SLShiftableSelector import SLShiftableSelector
-from SLRightShiftSelector import SLRightShiftSelector
-from SLEncoderModeSelector import SLEncoderModeSelector
-from SLMasterModeSelector import SLMasterModeSelector
-from SLButtonModeSelector import SLButtonModeSelector
-from SLButtonModeSelector import SLSpecialButton
+from .consts import *
+from .SLSession import SLSession
+from .SLMixer import SLMixer
+from .SLDevice import SLDevice
+from .SLDeviceControl import SLDeviceControl
+from .SLEncoder import SLEncoder
+from .SLShiftableSelector import SLShiftableSelector
+from .SLRightShiftSelector import SLRightShiftSelector
+from .SLEncoderModeSelector import SLEncoderModeSelector
+from .SLMasterModeSelector import SLMasterModeSelector
+from .SLButtonModeSelector import SLButtonModeSelector
+from .SLButtonModeSelector import SLSpecialButton
 #from SLMuteModeSelector import SLMuteModeSelector
-from SLPotModeSelector import SLPotModeSelector
+from .SLPotModeSelector import SLPotModeSelector
 #from SLSessionModeSelector import SLSessionModeSelector
-from SLTransport import SLTransport
+from .SLTransport import SLTransport
 #from SLTransportModeSelector import SLTransportModeSelector
-from SLDisplay import SLDisplay
+from .SLDisplay import SLDisplay
 
 class SLUltimateControl(ControlSurface):
     __doc__ = " SL Ultimate Control "
@@ -310,7 +310,7 @@ class SLUltimateControl(ControlSurface):
         self._pot_modes.name = 'pot_modes'
         self._mixer._pots = tuple(pots)
         #----------------------------------------------------
-        self._device_control = SLDeviceControl(self._device, self._display)
+        self._device_control = SLDeviceControl(self._device, self._display, self.log)
         
         
         self._shift_mode = SLShiftableSelector(tuple(select_buttons), show_pot_values_button, tuple(p1_buttons), self._scene_up_button, self._scene_down_button, self._scene_launch_button, self._session, self._mixer, self._encoder_modes, self._device, self._device_control, tuple(self._clip_launch_buttons), self._pot_modes)

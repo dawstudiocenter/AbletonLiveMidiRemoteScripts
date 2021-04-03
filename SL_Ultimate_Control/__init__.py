@@ -1,4 +1,4 @@
-from SLUltimateControl import SLUltimateControl
+from .SLUltimateControl import SLUltimateControl
 
 def create_instance(c_instance):
     return SLUltimateControl(c_instance)

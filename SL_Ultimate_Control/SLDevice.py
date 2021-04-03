@@ -3,7 +3,7 @@ from _Generic.Devices import *
 from _Framework.DeviceComponent import DeviceComponent  
 from _Framework.ButtonElement import ButtonElement
 from _Framework.EncoderElement import EncoderElement
-from consts import BUTTON_HOLD_DELAY
+from .consts import BUTTON_HOLD_DELAY
 
 class SLDevice(DeviceComponent):
     ' gdgdfgdfgdf '

@@ -1,7 +1,7 @@
 from __future__ import with_statement
 
 from _Framework.ControlSurface import ControlSurface
-from SLExtraDevice import SLExtraDevice
+from .SLExtraDevice import SLExtraDevice
 
 class SLExtraDeviceControl(ControlSurface):
     __doc__ = " SLExtraDevice "

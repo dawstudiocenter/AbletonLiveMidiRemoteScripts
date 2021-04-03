@@ -4,8 +4,8 @@ from _Framework.SceneComponent import SceneComponent
 from _Framework.ClipSlotComponent import ClipSlotComponent
 from _Framework.ButtonElement import ButtonElement
 from _Framework.SubjectSlot import subject_slot
-from consts import NONAME_CLIP, GROUP_CLIP, NO_CLIP, NO_CLIP_STOP_BUTTON, NO_CLIP_REC_BUTTON
-from config import P2_INVERT_SHIFT_MODE, SCENE_FOLLOWS_SESSION_BOX
+from .consts import NONAME_CLIP, GROUP_CLIP, NO_CLIP, NO_CLIP_STOP_BUTTON, NO_CLIP_REC_BUTTON
+from .config import P2_INVERT_SHIFT_MODE, SCENE_FOLLOWS_SESSION_BOX
 
 INITIAL_SCROLLING_DELAY = 5
 INTERVAL_SCROLLING_DELAY = 1
@@ -489,7 +489,7 @@ class SLClipSlot(ClipSlotComponent):
     def update(self):
         if self._session._support_mkII:
             self._has_fired_slot = False
-            if (Live.Application.get_application().get_major_version() == 9 and Live.Application.get_application().get_minor_version() > 0) or Live.Application.get_application().get_major_version() == 10 :
+            if (Live.Application.get_application().get_major_version() == 9 and Live.Application.get_application().get_minor_version() > 0) or Live.Application.get_application().get_major_version() >= 10 :
                 button = self._launch_button_value.subject
             else:
                 button = self._launch_button_value_slot.subject

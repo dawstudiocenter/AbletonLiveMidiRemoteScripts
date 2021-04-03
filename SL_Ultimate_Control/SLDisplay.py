@@ -1,5 +1,5 @@
 from _Framework.ControlElement import ControlElement
-from consts import DISPLAY_FAST_DELAY, DISPLAY_LONG_DELAY, NUM_CHARS_PER_DISPLAY_LINE, NUM_CHARS_PER_DISPLAY_STRIP, CLEAR_LEFT_DISPLAY, CLEAR_RIGHT_DISPLAY, SYSEX_HEADER
+from .consts import DISPLAY_FAST_DELAY, DISPLAY_LONG_DELAY, NUM_CHARS_PER_DISPLAY_LINE, NUM_CHARS_PER_DISPLAY_STRIP, CLEAR_LEFT_DISPLAY, CLEAR_RIGHT_DISPLAY, SYSEX_HEADER
 
 class SLDisplay(ControlElement):
     ' Display ' 
@@ -144,7 +144,7 @@ class SLDisplay(ControlElement):
                     assert (len(parameters) == 8)
                     for p in parameters:
                         if p:
-                            message_string += self._adjust_strip_string(unicode(p))
+                            message_string += self._adjust_strip_string(str(p))
                         else:
                             message_string += self._adjust_strip_string('')
     
@@ -192,7 +192,7 @@ class SLDisplay(ControlElement):
         
     def _adjust_strip_string(self, display_string, length=NUM_CHARS_PER_DISPLAY_STRIP):
         if (not display_string):
-            return (' ' * length)
+            return (' ' * int(length))
         
         #--------------------------- round dB values
         display_string.strip()
@@ -228,15 +228,15 @@ class SLDisplay(ControlElement):
                     um_pos = display_string.rfind(um, 1)
                     display_string = (display_string[:um_pos] + display_string[(um_pos + 1):])
         else:
-            display_string = display_string.center((length - 1))
+            display_string = display_string.center((int(length) - 1))
         ret = u''
-        for i in range((length - 1)):
+        for i in range((int(length) - 1)):
             if ((ord(display_string[i]) > 127) or (ord(display_string[i]) < 0)):
                 ret += ' '
             else:
                 ret += display_string[i]
         ret += ' '
-        assert (len(ret) == length)
+        assert (len(ret) == int(length))
         return ret
     
     #def _send_midi(self, midi_bytes, optimized = None):

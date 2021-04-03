@@ -7,9 +7,9 @@ from _Framework.EncoderElement import EncoderElement
 #from _Framework.DisplayDataSource import DisplayDataSource
 from _Framework.ControlSurface import ControlSurface
 
-from consts import BUTTON_HOLD_DELAY, BUTTON_DOUBLE_PRESS_DELAY, DISPLAY_FAST_DELAY
-from config import INCLUDE_RETURN_TRACKS, SMART_VIEW, TRACK_SELECT_ON_ARM, INVERT_MUTE_FEEDBACK, TEMPO_TOP, TEMPO_BOTTOM
-from SLEncoder import SLEncoder
+from .consts import BUTTON_HOLD_DELAY, BUTTON_DOUBLE_PRESS_DELAY, DISPLAY_FAST_DELAY
+from .config import INCLUDE_RETURN_TRACKS, SMART_VIEW, TRACK_SELECT_ON_ARM, INVERT_MUTE_FEEDBACK, TEMPO_TOP, TEMPO_BOTTOM
+from .SLEncoder import SLEncoder
 
 class SLMixer(MixerComponent):
     ' Special mixer class that uses return and master tracks alongside midi and audio tracks '
