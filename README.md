@@ -1,6 +1,8 @@
 AbletonLiveMidiRemoteScripts
 ============================
-Compatibility with Live 9 (>9.1) and Live 10
+Compatibility with Live 9 (>9.1), Live 10 and Live 11 for SL Ultimate Control and SL Ultimate Extra device
+Compatibility with Live 9 (>9.1) and Live 10 for SL Ultimate Control Browser and SL Ultimate Extra device Browser
+
 
 MIDI Remote Scripts for Ableton Live and Novation Remote 25 SL MK2 Device
 Include original SL Ultimate Control script from Roman Sharov (version 1.07)
